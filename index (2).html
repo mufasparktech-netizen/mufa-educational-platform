@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MUFA NEXUS EDU HUB</title>
+<style>
+:root{--bg:#12372a;--card:#1a4636;--ink:#f1efe6;--mut:#a9c2b4;--ac:#f2c94c;--bad:#ff8a80;--bd:#2c5f4a}
+@media(prefers-color-scheme:light){:root{--bg:#eef2e8;--card:#fff;--ink:#17301f;--mut:#58705f;--ac:#b8860b;--bad:#c0392b;--bd:#cfdac8}}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+header{padding:18px 16px 10px;text-align:center}
+h1{font:700 22px Georgia,serif;letter-spacing:.04em;margin:0;cursor:pointer;user-select:none}
+header p{margin:2px 0 0;color:var(--mut);font-size:13px}
+main{max-width:640px;margin:0 auto;padding:8px 14px 60px}
+h2,h3{font-family:Georgia,serif;margin:6px 0 10px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px;margin:12px 0}
+input,textarea,select{width:100%;padding:11px;margin:5px 0;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--ink);font:inherit}
+textarea{min-height:70px}
+button{padding:10px 16px;border:0;border-radius:8px;background:var(--ac);color:#1b2a10;font:600 14px inherit;cursor:pointer;margin:4px 4px 4px 0}
+button.s{background:transparent;color:var(--ink);border:1px solid var(--bd)}
+button.bad,.bad{color:var(--bad)}button.bad{border-color:var(--bad)}
+button.t{background:transparent;color:var(--mut);border:0;border-bottom:2px solid transparent;border-radius:0}
+button.t.on{color:var(--ac);border-color:var(--ac)}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
+.row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}.row input,.row select{flex:1;min-width:120px;width:auto}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px}.tabs{display:flex;overflow-x:auto;border-bottom:1px solid var(--bd)}
+.m{color:var(--mut);font-size:13px}.tag{background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:1px 8px;font-size:13px;color:var(--ac)}
+.rp{padding:8px 0;border-top:1px solid var(--bd)}hr{border:0;border-top:1px solid var(--bd)}
+audio,video{width:100%;margin-top:4px;border-radius:8px}a{color:var(--ac)}
+a.hb{display:inline-block;padding:11px 18px;border-radius:8px;background:var(--ac);color:#1b2a10;font-weight:600;text-decoration:none}
+.rr{display:flex;gap:10px;padding:10px;margin:8px 0;background:var(--bg);border-radius:12px;border-left:4px solid hsl(var(--h),65%,55%)}
+.av{flex:none;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;background:hsl(var(--h),55%,42%);object-fit:cover}
+.rb{flex:1;min-width:0}.rb b{color:hsl(var(--h),70%,72%)}
+@media(prefers-color-scheme:light){.rb b{color:hsl(var(--h),60%,32%)}}
+.mb{max-width:82%;padding:8px 12px;border-radius:14px;margin:6px 0;background:var(--bg)}.mb.me{margin-left:auto;background:var(--ac);color:#1b2a10}.mb.me .m{color:#3b4a20}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ac);color:#1b2a10;padding:10px 16px;border-radius:8px;display:none;z-index:9}
+</style></head><body>
+<header><h1 id="logo">MUFA NEXUS EDU HUB</h1><p>Learn. Ask. Reply.</p></header>
+<main id="app"></main><div id="toast"></div>
+<script>
+//SHA
+function sha256(s){const b=new TextEncoder().encode(s),l=b.length,n=((l+9+63)>>6)<<6,m=new Uint8Array(n);m.set(b);m[l]=128;const dv=new DataView(m.buffer);dv.setUint32(n-4,l*8);const K=[],H=[];
+for(let c=2,i=0;i<64;c++){let p=1;for(let d=2;d*d<=c;d++)if(c%d==0)p=0;if(p){if(i<8)H[i]=(Math.pow(c,.5)%1)*4294967296|0;K[i++]=(Math.cbrt(c)%1)*4294967296|0}}
+const w=new Int32Array(64),R=(x,n)=>(x>>>n)|(x<<(32-n));
+for(let o=0;o<n;o+=64){for(let i=0;i<16;i++)w[i]=dv.getInt32(o+i*4);
+for(let i=16;i<64;i++){const a=w[i-15],c=w[i-2];w[i]=(w[i-16]+(R(a,7)^R(a,18)^(a>>>3))+w[i-7]+(R(c,17)^R(c,19)^(c>>>10)))|0}
+let[a,b2,c2,d,e,f,g,h]=H;
+for(let i=0;i<64;i++){const t1=(h+(R(e,6)^R(e,11)^R(e,25))+((e&f)^(~e&g))+K[i]+w[i])|0,t2=((R(a,2)^R(a,13)^R(a,22))+((a&b2)^(a&c2)^(b2&c2)))|0;h=g;g=f;f=e;e=(d+t1)|0;d=c2;c2=b2;b2=a;a=(t1+t2)|0}
+[a,b2,c2,d,e,f,g,h].forEach((v,i)=>H[i]=(H[i]+v)|0)}
+return H.map(x=>(x>>>0).toString(16).padStart(8,'0')).join('')}
+///SHA
+const $=s=>document.querySelector(s),app=$('#app'),DEVH='6387acf1f2bcacf9e76d68cabaa1bbe58bc075f46721ec1ae007571b30492000';
+const BC='https://wa.me/263783077684?text='+encodeURIComponent('Good day Mr Mufa, I would like to explore the Bondolfi Teachers College Computer Science class. Kindly advise me and connect me to your best lectures at BTC. ');
+const WAL='https://wa.me/263783077684?text='+encodeURIComponent('Hey Mr Mufa, I need assistance on how to use the app.');
+const H=p=>sha256('MNX|'+p),uid=()=>Math.random().toString(36).slice(2,9),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const code=n=>{let c='',a='ABCDEFGHJKMNPQRSTUVWXYZ23456789';for(let i=0;i<n;i++)c+=a[Math.random()*a.length|0];return c};
+const fresh=()=>({devHash:DEVH,admins:[],chats:[],classes:[],people:[],posts:[],replies:[],fails:0,lock:0});
+let db;try{db=JSON.parse(localStorage.getItem('mnx'))||fresh()}catch(e){db=fresh()}
+db.chats=db.chats||[];const save=()=>{try{localStorage.setItem('mnx',JSON.stringify(db))}catch(e){toast('Storage full')}};
+let ses=null;try{ses=JSON.parse(sessionStorage.getItem('ses'))}catch(e){}
+const setSes=s=>{ses=s;try{sessionStorage.setItem('ses',JSON.stringify(s))}catch(e){}};
+const toast=m=>{const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(t.h);t.h=setTimeout(()=>t.style.display='none',2500)};
+// media store (IndexedDB, inside this browser)
+const idb=()=>new Promise((r,j)=>{const q=indexedDB.open('mnxm',1);q.onupgradeneeded=()=>q.result.createObjectStore('m');q.onsuccess=()=>r(q.result);q.onerror=j});
+const mput=async(k,b)=>{const d=await idb();return new Promise(r=>{const t=d.transaction('m','readwrite');t.objectStore('m').put(b,k);t.oncomplete=r})};
+const mget=async k=>{const d=await idb();return new Promise(r=>{const q=d.transaction('m').objectStore('m').get(k);q.onsuccess=()=>r(q.result)})};
+const mdel=async k=>{const d=await idb();d.transaction('m','readwrite').objectStore('m').delete(k)};
+const rmR=f=>{db.replies.filter(f).forEach(r=>r.mid&&mdel(r.mid));db.replies=db.replies.filter(r=>!f(r))};
+const hyd=()=>document.querySelectorAll('[data-m]').forEach(async e=>{const b=await mget(e.dataset.m);if(!b)return;const u=URL.createObjectURL(b);e.tagName==='A'?e.href=u:e.src=u});
+const hue=s=>[...s].reduce((a,c)=>a+c.charCodeAt(0)*7,0)%360,ini=n=>n.split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+const avt=p=>p&&p.photo?`<img class=av style="--h:${hue(p.name)}" src="${p.photo}" alt="">`:`<span class=av style="--h:${hue(p?p.name:'x')}">${esc(ini(p?p.name:'?'))}</span>`;
+const rs=f=>new Promise(r=>{const i=new Image();i.onload=()=>{const c=document.createElement('canvas');c.width=c.height=128;const m=Math.min(i.width,i.height);c.getContext('2d').drawImage(i,(i.width-m)/2,(i.height-m)/2,m,m,0,0,128,128);r(c.toDataURL('image/jpeg',.7))};i.src=URL.createObjectURL(f)});
+const nm=id=>(db.people.find(p=>p.id===id)||{name:'(removed)'}).name,live=x=>x.admin||x.ok||x.likes.length>=6;
+// routing
+function route(){const h=location.hash.slice(1)||'/';
+if(h.startsWith('/dev'))return ses&&ses.k==='d'?panel():login('dev');
+if(h.startsWith('/admin'))return ses&&(ses.k==='a'||ses.k==='d')?panel():login('admin');
+if(h.startsWith('/join/'))return home(h.split('/')[2]);
+if(ses&&ses.k==='p')return feed();home()}
+addEventListener('hashchange',route);
+let taps=0,tt;$('#logo').onclick=()=>{taps++;clearTimeout(tt);tt=setTimeout(()=>taps=0,3000);if(taps>=5){taps=0;location.hash='#/dev'}};
+function home(cc=''){app.innerHTML=`<div class=card><h2>Join your class</h2><p class=m>Enter the class code and your personal code from your teacher. Your name is set by the admin.</p><input id=cc placeholder="Class code" value="${esc(cc)}" maxlength=6 autocapitalize=characters><input id=pc placeholder="Your personal code" maxlength=6 autocapitalize=characters><button data-a=join>Join class</button><p id=err class=bad></p></div><p class=m style="text-align:center"><a href="#/admin">Admin login</a></p><div class=card><h3>Explore</h3><p class=m>Join our community or ask about the Bondolfi Teachers College class.</p><a class=hb href="https://chat.whatsapp.com/CzUelqoesAx4XBYjdyoyL9" target=_blank rel=noopener>Join our WhatsApp group</a><p><button class=s data-a=contact>Contact Mr Mufa: explore our Bondolfi Teachers College class</button></p><div id=xp></div></div><p style="text-align:center"><a class=hb href="${WAL}" target=_blank rel=noopener>Need help? Chat with Mr Mufa on WhatsApp</a></p>`}
+function login(kind){app.innerHTML=`<div class=card><h2>${kind==='dev'?'Developer access':'Admin login'}</h2><input id=k type=password placeholder="${kind==='dev'?'Developer key':'Admin key'}"><button data-a=${kind}in>Enter</button><p id=err class=bad></p></div>`}
+const rep=(r,adm)=>{const p=db.people.find(x=>x.id===r.pid);return `<div class=rr style="--h:${hue(p?p.name:'x')}">${avt(p)}<div class=rb>${adm?`<input type=checkbox class=ck value=${r.id} style="width:auto"> `:''}<b>${esc(nm(r.pid))}</b> <span class=m>${new Date(r.ts).toLocaleString()}</span><br>${r.type==='text'?esc(r.text):r.type==='audio'?`<audio controls ${adm?'':'controlsList=nodownload oncontextmenu="return false"'} data-m=${r.mid}></audio>`:`<video controls playsinline ${adm?'':'controlsList="nodownload noremoteplayback" disablepictureinpicture oncontextmenu="return false"'} data-m=${r.mid}></video>`}${adm&&r.mid?` <a data-m=${r.mid} download="${r.type}-${r.id}">Download</a>`:''}</div></div>`};
+function post(x,adm){const rs=db.replies.filter(r=>r.postId===x.id);
+return `<div class=card><b>${esc(x.title)}</b> ${live(x)?'':'<span class=tag>awaiting likes</span>'}<p>${esc(x.body||'')}</p><p class=m>By ${x.admin?'Admin':esc(nm(x.by))} · ${x.likes.length}/6 likes</p>`+
+(adm?`${live(x)?'':`<button class=s data-a=ok data-v=${x.id}>Approve</button>`}<button class="s bad" data-a=delpost data-v=${x.id}>Delete post</button><hr>${rs.map(r=>rep(r,1)).join('')||'<p class=m>No replies yet.</p>'}${rs.length?`<button class="s bad" data-a=delsel data-v=${x.id}>Remove selected</button><button class="s bad" data-a=delall data-v=${x.id}>Remove all</button>`:''}`
+:live(x)?`<hr>${rs.map(r=>rep(r,0)).join('')}<div class=row><input id=r-${x.id} placeholder="Type your reply"><button data-a=reply data-v=${x.id}>Send</button></div><button class=s data-a=rec data-v=${x.id} data-k=audio>Record audio</button><button class=s data-a=rec data-v=${x.id} data-k=video>Record video note</button>`
+:`<button class=s data-a=like data-v=${x.id}>Like</button>`)+`</div>`}
+let stab='posts',cw='';
+function feed(){const me=db.people.find(x=>x.id===ses.id);if(!me){setSes(null);return home()}
+const c=db.classes.find(x=>x.id===me.classId),ps=db.posts.filter(x=>x.classId===me.classId),mates=db.people.filter(x=>x.classId===me.classId&&x.id!==me.id);
+const nav=`<div class=tabs>${[['posts','Posts'],['chat','Chat'],['prof','My profile']].map(t=>`<button class="t ${t[0]===stab?'on':''}" data-a=stab data-v=${t[0]}>${t[1]}</button>`).join('')}</div>`;let body;
+if(stab==='posts')body=`<div class=card><h3>Ask a question</h3><textarea id=aq placeholder="It is published after 6 classmates like it"></textarea><button data-a=ask>Submit question</button></div><h3>Class posts</h3>${ps.filter(live).map(x=>post(x,0)).join('')||'<p class=m>No posts yet.</p>'}<h3>Awaiting 6 likes</h3>${ps.filter(x=>!live(x)).map(x=>post(x,0)).join('')||'<p class=m>Nothing waiting.</p>'}`;
+else if(stab==='prof')body=`<div class=card><div class=row>${avt(me)}<div><b>${esc(me.name)}</b><br><span class=m>${me.role}</span></div></div><p class=m>Choose a profile photo</p><input type=file accept="image/*" data-a=photo><textarea id=bio placeholder="Write a short bio">${esc(me.bio||'')}</textarea><button data-a=saveprof>Save profile</button></div>`;
+else{const o=db.people.find(x=>x.id===cw&&x.classId===me.classId);
+body=`<p class=m>Messages are recorded and can be viewed by the administrator.</p>`+(o?`<div class=bar><b>${esc(o.name)}</b><button class=s data-a=openchat data-v="">Back</button></div>${db.chats.filter(m=>!m.del&&((m.from===me.id&&m.to===o.id)||(m.from===o.id&&m.to===me.id))).map(m=>`<div class="mb ${m.from===me.id?'me':''}">${esc(m.text)}<br><span class=m>${new Date(m.ts).toLocaleTimeString()}</span>${m.from===me.id?` <button class=s data-a=delmsg data-v=${m.id}>Delete</button>`:''}</div>`).join('')||'<p class=m>No messages yet.</p>'}<div class=row><input id=cm placeholder="Type a message"><button data-a=sendmsg>Send</button></div>`:mates.map(q=>`<div class=card><div class=row>${avt(q)}<b style="flex:1">${esc(q.name)}</b><button class=s data-a=openchat data-v=${q.id}>Chat</button></div>${q.bio?`<p class=m>${esc(q.bio)}</p>`:''}</div>`).join('')||'<p class=m>No classmates yet.</p>')}
+app.innerHTML=`<div class=bar><b>${esc(me.name)}</b><span class=m>${esc(c?c.name:'')}</span><button class=s data-a=out>Leave</button></div>${nav}${body}`;hyd()}
+let tab='cls',cur='';
+function panel(){const dev=ses.k==='d',me=dev?null:db.admins.find(a=>a.id===ses.id);if(!dev&&!me){setSes(null);return login('admin')}
+const cl=db.classes.filter(c=>dev||c.owner===me.id);if(!cl.find(c=>c.id===cur))cur=cl[0]?cl[0].id:'';
+const tabs=[['cls','Classes and people'],['pst','Posts and replies'],...(dev?[['cht','Chats'],['adm','Admins'],['sec','Security and data']]:[])];
+if(!tabs.find(t=>t[0]===tab))tab='cls';
+const body=tab==='cls'?cl.map(c=>`<div class=card><b>${esc(c.name)}</b> <span class=tag>Class code ${c.code}</span><br><button class=s data-a=cp data-v=${c.code}>Copy join link</button><button class="s bad" data-a=delc data-v=${c.id}>Delete class</button>${db.people.filter(p=>p.classId===c.id).map(p=>`<div class=rp>${esc(p.name)} <span class=m>${p.role}</span> <span class=tag>${p.code}</span>${p.ph?` <span class=m>${esc(p.ph)}</span>`:''} <button class=s data-a=wa data-v=${p.id}>Send login details</button> <button class="s bad" data-a=delp data-v=${p.id}>Remove</button></div>`).join('')}<div class=row><input id=pn-${c.id} placeholder="Full name"><input id=ph-${c.id} type=tel placeholder="WhatsApp number"><select id=pr-${c.id}><option>student<option>staff</select><button data-a=addp data-v=${c.id}>Add person</button></div></div>`).join('')+`<div class=card><h3>New class</h3><div class=row><input id=cn placeholder="Class name"><button data-a=addc>Create class</button></div></div>`
+:tab==='pst'?(cl.length?`<div class=card><select data-a=cur>${cl.map(x=>`<option value=${x.id} ${x.id===cur?'selected':''}>${esc(x.name)}</option>`).join('')}</select><input id=pt placeholder="Question or post title"><textarea id=pb placeholder="Details (optional)"></textarea><button data-a=addpost>Publish post</button></div>`+db.posts.filter(x=>x.classId===cur).map(x=>post(x,1)).join(''):'<p class=m>Create a class first.</p>')
+:tab==='cht'?chatsT():tab==='adm'?`<div class=card><h3>New admin</h3><div class=row><input id=an placeholder="Name"><input id=ak placeholder="Access key (8+ characters)"><button data-a=adda>Create admin</button></div><p class=m>Give the key to the person privately.</p></div>`+db.admins.map(a=>`<div class=card>${esc(a.name)} <button class="s bad" data-a=dela data-v=${a.id}>Revoke</button></div>`).join('')
+:`<div class=card><h3>Change developer key</h3><input id=ok type=password placeholder="Current key"><input id=nk type=password placeholder="New key (8+ characters)"><button data-a=chk>Change key</button></div><div class=card><h3>Data in this browser</h3><p class=m>${db.classes.length} classes, ${db.people.length} people, ${db.posts.length} posts, ${db.replies.length} replies</p><button data-a=exp>Export data (JSON)</button><button class="s bad" data-a=wipe>Wipe all data</button></div>`;
+app.innerHTML=`<div class=bar><b>${dev?'Developer panel':'Admin: '+esc(me.name)}</b><button class=s data-a=out>Log out</button></div><div class=tabs>${tabs.map(t=>`<button class="t ${t[0]===tab?'on':''}" data-a=tab data-v=${t[0]}>${t[1]}</button>`).join('')}</div>${body}`;hyd()}
+const chatsT=()=>`<p class=m>All student messages, including deleted ones. Visible to the developer only.</p>`+(db.chats.slice().reverse().map(m=>`<div class=card><b>${esc(nm(m.from))}</b> to <b>${esc(nm(m.to))}</b> <span class=m>${new Date(m.ts).toLocaleString()}</span>${m.del?' <span class=tag>deleted by sender</span>':''}<p>${esc(m.text)}</p></div>`).join('')||'<p class=m>No messages yet.</p>');
+let rec;
+async function record(pid,kind){if(rec){rec.stop();return}
+try{const st=await navigator.mediaDevices.getUserMedia(kind==='video'?{video:{facingMode:'user'},audio:true}:{audio:true}),ch=[];rec=new MediaRecorder(st);
+rec.ondataavailable=e=>ch.push(e.data);
+rec.onstop=async()=>{st.getTracks().forEach(t=>t.stop());const b=new Blob(ch,{type:rec.mimeType}),id=uid();rec=null;await mput(id,b);db.replies.push({id:uid(),postId:pid,pid:ses.id,type:kind,mid:id,ts:Date.now()});save();route()};
+rec.start();toast('Recording. Tap the same button again to stop.')}catch(e){rec=null;toast('Allow microphone or camera access')}}
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-a]');if(!b||b.tagName==='SELECT')return;
+const a=b.dataset.a,v=b.dataset.v,g=i=>((document.getElementById(i)||{}).value||'').trim(),err=m=>{const x=$('#err');if(x)x.textContent=m},done=()=>{save();route()};
+const adm=ses&&(ses.k==='a'||ses.k==='d'),dv=ses&&ses.k==='d',me=ses&&ses.k==='p'?db.people.find(x=>x.id===ses.id):null;
+if(a==='join'){const c=db.classes.find(x=>x.code===g('cc').toUpperCase()),p=c&&db.people.find(x=>x.classId===c.id&&x.code===g('pc').toUpperCase());if(!p)return err('Codes not found. Check with your teacher.');setSes({k:'p',id:p.id});location.hash='#/';route()}
+else if(a==='devin'||a==='adminin'){if(db.lock>Date.now())return err('Too many tries. Wait '+Math.ceil((db.lock-Date.now())/60000)+' min.');const h=H(g('k'));
+if(a==='devin'?h===db.devHash:0){db.fails=0;save();setSes({k:'d'});route()}
+else{const ad=a==='adminin'&&db.admins.find(x=>x.hash===h);if(ad){db.fails=0;save();setSes({k:'a',id:ad.id});route()}else{if(++db.fails>=5){db.lock=Date.now()+3e5;db.fails=0}save();err('Wrong key')}}}
+else if(a==='contact'){$('#xp').innerHTML=`<p><b>Thank you for contacting Mr Mufa. How may I assist you?</b></p><a class=hb href="${BC}" target=_blank rel=noopener>Continue on WhatsApp</a>`}
+else if(a==='out'){setSes(null);location.hash='#/';route()}
+else if(a==='tab'){tab=v;panel()}
+else if(a==='ask'&&me){const t=g('aq');if(t.length<5)return toast('Write your question first');db.posts.push({id:uid(),classId:me.classId,title:t,body:'',by:me.id,admin:0,ok:0,likes:[],ts:Date.now()});done()}
+else if(a==='like'&&me){const x=db.posts.find(p=>p.id===v);if(x.by===me.id)return toast('You cannot like your own question');if(x.likes.includes(me.id))return toast('Already liked');x.likes.push(me.id);done()}
+else if(a==='reply'&&me){const t=g('r-'+v);if(!t)return;db.replies.push({id:uid(),postId:v,pid:me.id,type:'text',text:t,ts:Date.now()});done()}
+else if(a==='stab'&&me){stab=v;feed()}
+else if(a==='openchat'&&me){cw=v;feed()}
+else if(a==='sendmsg'&&me){const t=g('cm');if(!t||!cw)return;db.chats.push({id:uid(),from:me.id,to:cw,text:t,ts:Date.now(),del:0});save();feed()}
+else if(a==='delmsg'&&me){const m=db.chats.find(x=>x.id===v&&x.from===me.id);if(m){m.del=1;save();feed()}}
+else if(a==='saveprof'&&me){me.bio=g('bio');save();toast('Profile saved')}
+else if(a==='rec'&&me)record(v,b.dataset.k);
+else if(adm){
+if(a==='addc'){const n=g('cn');if(!n)return;db.classes.push({id:uid(),name:n,code:code(6),owner:dv?'dev':ses.id});done()}
+else if(a==='cp'){const u=location.href.split('#')[0]+'#/join/'+v;try{await navigator.clipboard.writeText(u);toast('Join link copied')}catch(x){prompt('Copy this link',u)}}
+else if(a==='delc'&&confirm('Delete this class and everything in it?')){const ids=db.posts.filter(x=>x.classId===v).map(x=>x.id);rmR(r=>ids.includes(r.postId));db.posts=db.posts.filter(x=>x.classId!==v);db.people=db.people.filter(x=>x.classId!==v);db.classes=db.classes.filter(x=>x.id!==v);done()}
+else if(a==='wa'){const p=db.people.find(x=>x.id===v),c=db.classes.find(x=>x.id===p.classId);let n=(p.ph||'').replace(/\D/g,'');if(!n)return toast('Add a phone number first');if(n[0]==='0')n='263'+n.slice(1);const t=`Hello ${p.name}, welcome to MUFA NEXUS EDU HUB.\nYour name on the system: ${p.name}\nClass: ${c.name}\nClass code: ${c.code}\nYour personal code: ${p.code}\nJoin here: ${location.href.split('#')[0]}#/join/${c.code}`;window.open('https://wa.me/'+n+'?text='+encodeURIComponent(t),'_blank')}
+else if(a==='addp'){const n=g('pn-'+v);if(!n)return;db.people.push({id:uid(),classId:v,name:n,role:g('pr-'+v)||'student',ph:g('ph-'+v),code:code(6)});done()}
+else if(a==='delp'&&confirm('Remove this person and their replies?')){rmR(r=>r.pid===v);db.people=db.people.filter(x=>x.id!==v);done()}
+else if(a==='addpost'){const t=g('pt');if(!t||!cur)return;db.posts.push({id:uid(),classId:cur,title:t,body:g('pb'),by:null,admin:1,ok:1,likes:[],ts:Date.now()});done()}
+else if(a==='ok'){db.posts.find(x=>x.id===v).ok=1;done()}
+else if(a==='delpost'&&confirm('Delete this post and its replies?')){rmR(r=>r.postId===v);db.posts=db.posts.filter(x=>x.id!==v);done()}
+else if(a==='delsel'){const ids=[...b.closest('.card').querySelectorAll('.ck:checked')].map(c=>c.value);if(!ids.length)return toast('Tick the replies to remove');rmR(r=>ids.includes(r.id));done()}
+else if(a==='delall'&&confirm('Remove all replies on this post?')){rmR(r=>r.postId===v);done()}
+else if(dv){
+if(a==='adda'){const n=g('an'),k=g('ak');if(!n||k.length<8)return toast('Name and a key of 8+ characters');db.admins.push({id:uid(),name:n,hash:H(k)});done()}
+else if(a==='dela'&&confirm('Revoke this admin?')){db.admins=db.admins.filter(x=>x.id!==v);done()}
+else if(a==='chk'){if(H(g('ok'))!==db.devHash)return toast('Current key is wrong');if(g('nk').length<8)return toast('New key needs 8+ characters');db.devHash=H(g('nk'));save();toast('Key changed')}
+else if(a==='exp'){const l=document.createElement('a');l.href=URL.createObjectURL(new Blob([JSON.stringify(db,null,1)],{type:'application/json'}));l.download='mufa-nexus-data.json';l.click()}
+else if(a==='wipe'&&confirm('Wipe ALL data? This cannot be undone.')){indexedDB.deleteDatabase('mnxm');db={...fresh(),devHash:db.devHash};done()}}}});
+document.addEventListener('change',async e=>{const t=e.target;if(t.dataset.a==='cur'){cur=t.value;panel()}else if(t.dataset.a==='photo'&&t.files[0]&&ses&&ses.k==='p'){const me=db.people.find(x=>x.id===ses.id);me.photo=await rs(t.files[0]);save();feed()}});
+route();
+</script></body></html>
